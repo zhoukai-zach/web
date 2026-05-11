@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>手机架构部 · AI 技术洞察周报 · 2026-W19</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --surface: #161a21;
+    --surface-2: #1c2129;
+    --border: #262c36;
+    --border-strong: #323945;
+    --text: #e6e8eb;
+    --text-2: #a8aebb;
+    --text-3: #6f7785;
+    --accent: #7ab8ff;
+    --success: #6dd58c;
+    --warning: #f0b25b;
+    --info: #7ab8ff;
+    --danger: #f07b7b;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 56px 40px 80px;
+  }
+  h1 { font-size: 28px; font-weight: 600; margin: 0 0 8px; letter-spacing: -0.01em; }
+  h2 { font-size: 20px; font-weight: 600; margin: 40px 0 16px; letter-spacing: -0.005em; }
+  h3 { font-size: 15px; font-weight: 600; margin: 24px 0 12px; color: var(--text); }
+  p { margin: 0 0 8px; color: var(--text-2); }
+  .lead { color: var(--text-2); font-size: 14px; margin-bottom: 4px; }
+  .muted { color: var(--text-3); font-size: 12px; }
+  .accent { color: var(--accent); }
+  strong { color: var(--text); font-weight: 600; }
+
+  .pills { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 10px 0 18px; }
+  .pill {
+    display: inline-flex; align-items: center;
+    padding: 3px 10px;
+    font-size: 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    color: var(--text-2);
+    background: transparent;
+  }
+  .pill.info { color: var(--info); border-color: rgba(122, 184, 255, 0.45); background: rgba(122, 184, 255, 0.08); }
+  .pill.success { color: var(--success); border-color: rgba(109, 213, 140, 0.45); background: rgba(109, 213, 140, 0.08); }
+  .pill.warning { color: var(--warning); border-color: rgba(240, 178, 91, 0.45); background: rgba(240, 178, 91, 0.08); }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 32px 0;
+    border: none;
+  }
+
+  /* Stats Grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .stat {
+    padding: 18px 18px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+  .stat .value { font-size: 24px; font-weight: 600; letter-spacing: -0.01em; }
+  .stat .label { font-size: 12px; color: var(--text-3); margin-top: 4px; }
+  .stat.success .value { color: var(--success); }
+  .stat.info .value { color: var(--info); }
+  .stat.warning .value { color: var(--warning); }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 13px;
+    margin: 8px 0 4px;
+  }
+  thead th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--text-2);
+    padding: 10px 14px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+  }
+  tbody td {
+    padding: 11px 14px;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-2);
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody td.first-col, tbody td:first-child strong { color: var(--text); }
+
+  /* Cards Grid */
+  .cards-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin: 12px 0;
+  }
+  .cards-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin: 12px 0;
+  }
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .card-body {
+    padding: 14px;
+    color: var(--text-2);
+    font-size: 13px;
+  }
+  .card-body p { margin-bottom: 8px; }
+  .card-body p:last-child { margin-bottom: 0; }
+
+  /* Callout */
+  .callout {
+    margin: 14px 0;
+    padding: 14px 16px;
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    background: rgba(122, 184, 255, 0.04);
+  }
+  .callout.success {
+    border-color: rgba(109, 213, 140, 0.35);
+    background: rgba(109, 213, 140, 0.06);
+  }
+  .callout .callout-title {
+    font-weight: 600;
+    color: var(--success);
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .callout.info .callout-title { color: var(--info); }
+  .callout p { color: var(--text-2); font-size: 13px; }
+
+  /* Inline elements */
+  code, .code {
+    font-family: "SF Mono", "Cascadia Mono", Consolas, "Microsoft YaHei Mono", monospace;
+    font-size: 0.92em;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: var(--surface-2);
+    color: var(--text);
+  }
+
+  ul { margin: 8px 0; padding-left: 22px; }
+  ul li { margin-bottom: 4px; color: var(--text-2); }
+
+  /* Print styles */
+  @media print {
+    body { background: white; color: #1a1a1a; }
+    .page { padding: 20px; max-width: none; }
+    .stat, .card, table, .callout { break-inside: avoid; }
+    h2, h3 { break-after: avoid; }
+    :root {
+      --bg: #ffffff;
+      --surface: #fafafa;
+      --surface-2: #f4f4f5;
+      --border: #e5e7eb;
+      --border-strong: #d1d5db;
+      --text: #18181b;
+      --text-2: #3f3f46;
+      --text-3: #71717a;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Hero -->
+  <h1>手机架构部 · AI 技术洞察周报</h1>
+  <div class="pills">
+    <span class="pill info">2026-05-W2</span>
+    <span class="pill">5/4 – 5/10</span>
+    <span class="muted">堆叠 · 结构 · PCB · 基带 · 射频 · 天线</span>
+  </div>
+  <p class="lead">本周三条主线同时推进：<strong>模型 → Agent、工具 → 多模态、部署 → 国产化</strong>。六个岗位均有可立即试用的新工具。</p>
+
+  <!-- Key Stats -->
+  <div class="stats-grid">
+    <div class="stat"><div class="value">1M</div><div class="label">Opus 4.7 默认上下文</div></div>
+    <div class="stat info"><div class="value">V4 / R2</div><div class="label">DeepSeek 双发 + 视觉灰度</div></div>
+    <div class="stat success"><div class="value">¥0.02</div><div class="label">V4-Flash 每百万 token</div></div>
+    <div class="stat"><div class="value">6</div><div class="label">岗位均有新工具可用</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Section 1 -->
+  <h2>一、本周通用 AI 大事件</h2>
+
+  <h3>主流模型节奏表</h3>
+  <table>
+    <thead><tr><th>模型</th><th>发布</th><th>一句话价值</th><th>部门怎么用</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Claude Opus 4.7</strong></td><td>04-16</td><td>默认 1M tokens 上下文 + 10 Agent 并行</td><td>3GPP 协议、规格书、长文档审阅</td></tr>
+      <tr><td><strong>GPT-5.5</strong></td><td>04-23</td><td>Tasks 100 条 + 条件分支</td><td>通用工作流自动化、跨工具编排</td></tr>
+      <tr><td><strong>DeepSeek V4-Pro</strong></td><td>04-24</td><td>1.6T/49B MoE，agentic 逼近 Opus 4.5</td><td>中文文档、私有化部署、低成本批处理</td></tr>
+      <tr><td><strong>DeepSeek 视觉</strong></td><td>04-29 灰度</td><td>"以视觉原语思考"，压缩比 7056×</td><td>datasheet 图、S 参数、方向图、PCB 照片</td></tr>
+      <tr><td><strong>Cursor 3.3</strong></td><td>05-07</td><td>并行子代理、PR 中心、可固定 Skill</td><td>自动化脚本、批量评审</td></tr>
+    </tbody>
+  </table>
+
+  <h3>DeepSeek 重磅周</h3>
+  <div class="stats-grid">
+    <div class="stat"><div class="value">1.6T</div><div class="label">V4-Pro 总参数 / 49B 激活</div></div>
+    <div class="stat success"><div class="value">92.7%</div><div class="label">R2 在 AIME 2025</div></div>
+    <div class="stat success"><div class="value">单卡 4090</div><div class="label">R2 本地可跑（MIT 开源）</div></div>
+    <div class="stat info"><div class="value">¥500 亿</div><div class="label">单轮融资创纪录</div></div>
+  </div>
+
+  <div class="callout success">
+    <div class="callout-title">对架构部的核心意义</div>
+    <p>R2 可本地单卡部署 → 涉密数据（未发布机型 spec、堆叠图、IP 设计、客户敏感资料）<strong>不必上云</strong>也能跑 AI 自动化的合规路径正式打通。</p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Section 2 -->
+  <h2>二、岗位 × AI 能力速查</h2>
+  <p>每位同事可以先在这里定位"本周跟我有什么关系"，再翻第三节细看。</p>
+
+  <table>
+    <thead><tr><th>岗位</th><th>本周新可用的关键能力</th><th>推荐工具 / 模型</th></tr></thead>
+    <tbody>
+      <tr><td><strong>堆叠工程师</strong></td><td>视觉识别 3D 堆叠图 / 拆机图、长规格书自动比对</td><td>DeepSeek 视觉灰度 · Opus 4.7（1M）</td></tr>
+      <tr><td><strong>结构工程师</strong></td><td>跌落 / 振动 / 散热仿真报告自动总结、CAD 截图理解</td><td>Opus 4.7 · DeepSeek 视觉 · Cursor /multitask</td></tr>
+      <tr><td><strong>PCB 工程师</strong></td><td>原理图自动审查、datasheet 反查、布线检查</td><td>Traceformer · PCB Studio · Flux</td></tr>
+      <tr><td><strong>基带工程师</strong></td><td>3GPP 规范矛盾检测、RRC log 语义分析</td><td>Opus 4.7 1M · CellularLint · ConSeT</td></tr>
+      <tr><td><strong>射频工程师</strong></td><td>匹配网络自动设计、S 参数 / Smith 圆图识别、滤波器综合</td><td>Matcha · Alpha-RF · Design Forge</td></tr>
+      <tr><td><strong>天线工程师</strong></td><td>HFSS / CST 仿真自动化、方向图识别、反向设计</td><td>AntennaCAT · LADS · CST + Python</td></tr>
+    </tbody>
+  </table>
+
+  <hr class="divider">
+
+  <!-- Section 3 -->
+  <h2>三、按岗位详解</h2>
+
+  <div class="card">
+    <div class="card-header">
+      <span>3.1 堆叠工程师</span>
+      <span class="pill info">视觉 + 长上下文</span>
+    </div>
+    <div class="card-body">
+      <p><strong>痛点</strong>：3D 堆叠空间紧、跨域协同复杂、新机型规格书海量对比。</p>
+      <p><strong>本周新能力</strong>：把堆叠剖面图、拆机对比图直接发给 DeepSeek 视觉；用 Opus 4.7 一次性塞入整套机型 + 友商对标机型规格做对比。</p>
+      <p class="muted">可立即落地：Skill「堆叠空间合规检查」；用 V4-Flash 批量提取近半年立项规格书的尺寸字段。</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 16px;">
+    <div class="card-header">
+      <span>3.2 结构工程师</span>
+      <span class="pill info">仿真报告 → 摘要</span>
+    </div>
+    <div class="card-body">
+      <p><strong>痛点</strong>：仿真报告动辄上百页、CAE 数据分析重复、跌落参数迭代慢。</p>
+      <p><strong>本周新能力</strong>：Opus 4.7 一次吃完仿真报告 + 历史改进记录给趋势；多模态识别热仿真云图、应力分布图。</p>
+      <p class="muted">可立即落地：Skill「仿真报告 → 一页摘要」；ABAQUS / ANSYS log 解析改成 V4-Flash 批处理流水线。</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 16px;">
+    <div class="card-header">
+      <span>3.3 PCB 工程师</span>
+      <span class="pill success">工具最成熟</span>
+    </div>
+    <div class="card-body">
+      <p><strong>痛点</strong>：原理图审查耗人时、datasheet 对照繁琐、DRC / SI 反复迭代。</p>
+      <table style="margin: 10px 0; border: none;">
+        <thead><tr><th>工具</th><th>能干什么</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Flux</strong></td><td>云端自然语言生成原理图</td></tr>
+          <tr><td><strong>PCB Studio</strong></td><td>KiCad 9 原生 Copilot，对话式生成 + SI / 热分析</td></tr>
+          <tr><td><strong>Traceformer</strong></td><td>自动抓 datasheet，按规格反查错误，结论可溯源</td></tr>
+          <tr><td><strong>ProtoFlow</strong></td><td>一键清理原理图 + 元器件库一键导入</td></tr>
+          <tr><td><strong>PCBai (OSS)</strong></td><td>从 spec 到 Gerber，开源</td></tr>
+        </tbody>
+      </table>
+      <p class="muted">Cadence ChipStack AI 已被 NVIDIA / Qualcomm 试用，宣称 10× 提效，可关注引入。</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 16px;">
+    <div class="card-header">
+      <span>3.4 基带工程师</span>
+      <span class="pill warning">本周亮点</span>
+    </div>
+    <div class="card-body">
+      <p><strong>痛点</strong>：3GPP 单 release 上千页、协议矛盾隐藏深、AT log 海量难解。</p>
+      <p><strong>本周新能力</strong>：</p>
+      <ul>
+        <li>Opus 4.7 1M 上下文——可以<strong>整本 38.331 (RRC) + 38.523 (Conformance) 一次性塞进去</strong>做交叉验证</li>
+        <li><strong>CellularLint</strong>：LLM + few-shot 在 4G/5G 规范中找出 157 处不一致，82.67% 准确率</li>
+        <li><strong>ConSeT</strong>：LLM 提取 RRC 约束，做 baseband 语义级测试</li>
+        <li><strong>3GPP TR 38.745</strong>：NG-RAN AI/ML Phase 3（Release 20）正式立项，需跟进</li>
+      </ul>
+      <p class="muted">可立即落地：Skill「3GPP 跨章节交叉检查」；V4-Flash 把半年 modem log 按 RRC 状态机分类。</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 16px;">
+    <div class="card-header">
+      <span>3.5 射频工程师</span>
+      <span class="pill warning">本周亮点</span>
+    </div>
+    <div class="card-body">
+      <p><strong>痛点</strong>：匹配调试依赖经验、S 参数 / Smith 图人工读取慢、滤波器综合周期长。</p>
+      <table style="margin: 10px 0;">
+        <thead><tr><th>工具</th><th>发布</th><th>价值</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Matcha</strong></td><td>2026-03</td><td>自动匹配网络合成 (LC) + Smith / VSWR + headless CLI 可自动化</td></tr>
+          <tr><td><strong>Alpha-RF</strong></td><td>arXiv 2603</td><td>神经仿真器 + RL 设计滤波器，仿真 4 min → &lt;100 ms</td></tr>
+          <tr><td><strong>Design Forge</strong></td><td>HFSS Copilot</td><td>S 参数 / 参数扫描 / 几何调优全自动脚本</td></tr>
+          <tr><td><strong>RFIC-GPT</strong></td><td>在线服务</td><td>AI 出 RFIC 原理图 + GDSII，宣称 95%+ 命中规格</td></tr>
+        </tbody>
+      </table>
+      <p class="muted">可立即落地：Skill「PA / LNA datasheet 比选」（视觉读图）；Matcha 跑一次现项目匹配重设计。</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 16px;">
+    <div class="card-header">
+      <span>3.6 天线工程师</span>
+      <span class="pill warning">本周亮点</span>
+    </div>
+    <div class="card-body">
+      <p><strong>痛点</strong>：HFSS / CST 单次仿真数小时、多目标参数空间巨大、毫米波场景调优依赖经验。</p>
+      <table style="margin: 10px 0;">
+        <thead><tr><th>工具 / 方法</th><th>价值</th></tr></thead>
+        <tbody>
+          <tr><td><strong>AntennaCAT (开源)</strong></td><td>ML 辅助天线优化框架，可挂 HFSS / CST</td></tr>
+          <tr><td><strong>LADS</strong></td><td>从论文图文生成天线模型 + 自动配优化器</td></tr>
+          <tr><td><strong>CST + Python + PyTorch</strong></td><td>工业级"宏脚本 + ML"集成路径</td></tr>
+          <tr><td><strong>Multi-objective variable-fidelity ML</strong></td><td>相比传统优化：算力降 90%、加速 40%</td></tr>
+          <tr><td><strong>1D-CNN 反向设计</strong></td><td>超宽带天线物理长度缩短 34%（案例）</td></tr>
+        </tbody>
+      </table>
+      <p class="muted">可立即落地：Skill「天线仿真结果摘要」；AntennaCAT 替代一次人工参数 sweep。</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Section 4 -->
+  <h2>四、Skills 与 MCP：部门"自动化资产"建议</h2>
+
+  <table>
+    <thead><tr><th>维度</th><th>Skills（流程性）</th><th>MCP（系统对接）</th></tr></thead>
+    <tbody>
+      <tr><td><strong>加载成本</strong></td><td>30–50 tokens 起</td><td>常驻连接</td></tr>
+      <tr><td><strong>架构部典型用途</strong></td><td>规格审查 / 测试报告生成 / 命名规范检查</td><td>接 Jira / Confluence / Git / 内部 PLM</td></tr>
+      <tr><td><strong>部署</strong></td><td>个人 / 部门 / 公司三层</td><td>部门级共享服务</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cards-3" style="margin-top: 16px;">
+    <div class="card">
+      <div class="card-header"><span>1. 共建部门 Skill 库</span></div>
+      <div class="card-body"><p>建议本月启动。每个岗位贡献 2–3 个 Skill，3 个月内沉淀 30+ 个。先做高频项：规格审查 / Datasheet 对照 / 测试摘要 / 命名规范。</p></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span>2. 接入内部 MCP</span></div>
+      <div class="card-body"><p>优先级 1：内部文档 / PLM。优先级 2：Jira / Confluence。先 1–2 个见效后再扩。</p></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span>3. 试点 R2 本地部署</span></div>
+      <div class="card-body"><p>用于涉密资料场景（未发布机型 / IP 设计 / 客户敏感数据）。24GB 单卡（4090 / A10 / 昇腾）即可起步。</p></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Section 5 -->
+  <h2>五、本周三件可立即试的事</h2>
+  <table>
+    <thead><tr><th style="width: 40px;">#</th><th>行动</th><th>谁来试</th><th>预期产出</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>把一份完整产品规格书喂给 Opus 4.7，做交叉一致性检查</td><td>任一岗位</td><td>5 分钟产出"自相矛盾点"列表</td></tr>
+      <tr><td>2</td><td>用 DeepSeek 视觉灰度识别一张 datasheet 图 / 仿真截图</td><td>射频 / 天线 / 基带</td><td>对比手动转述的准确性差异</td></tr>
+      <tr><td>3</td><td>用 Cursor 3.3 的 <code>/multitask</code> 跑并行脚本（如批量 log 解析）</td><td>PCB / 基带</td><td>验证跨任务并行能否压缩等待</td></tr>
+    </tbody>
+  </table>
+
+  <hr class="divider">
+
+  <!-- Section 6 -->
+  <h2>六、下周关注点</h2>
+  <div class="cards-2">
+    <div class="card">
+      <div class="card-header"><span>模型与平台</span></div>
+      <div class="card-body">
+        <p>· DeepSeek V4.1 发布（6 月）——加音频输入、强化 MCP 与编程</p>
+        <p>· Cadence ChipStack / Siemens Fuse 是否进入公司 EDA 视野</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span>标准与硬件</span></div>
+      <div class="card-body">
+        <p>· 3GPP TR 38.745（NG-RAN AI/ML Phase 3）Release 20 节奏</p>
+        <p>· 国产 GPU + DeepSeek 适配深度（昇腾 950 vs H100 性价比）</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <p class="muted">信息来源：Anthropic / OpenAI / Google / DeepSeek 官方更新、Cursor changelog（2026-05-07）、Cadence / Siemens / Synopsys 公告、arXiv（ConSeT / Alpha-RF / LADS）、Springer Nature、IEEE Xplore、The Register、36 氪、ITBear。下周同一时间发布。</p>
+
+</div>
+</body>
+</html>
