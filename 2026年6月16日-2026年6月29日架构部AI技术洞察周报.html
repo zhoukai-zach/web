@@ -100,7 +100,7 @@
     <div class="grid-4" style="margin-top:28px">
       <div class="card blue"><div class="stat">8</div><h3>技术方向</h3><p>模型、多模态、Agent、RAG、端侧 AI、AI Coding、AI for EDA/CAE、安全。</p></div>
       <div class="card green"><div class="stat">6</div><h3>岗位映射</h3><p>每个岗位都给出“能试什么”，避免停留在新闻层面。</p></div>
-      <div class="card amber"><div class="stat">3</div><h3>本周 Demo</h3><p>堆叠卡片、PCB 审图问答、3GPP 规范 RAG。</p></div>
+      <div class="card amber"><div class="stat">4</div><h3>推荐试点</h3><p>堆叠卡片、PCB 审图问答、3GPP 规范 RAG、端侧 RAG 能效基准。</p></div>
       <div class="card red"><div class="stat">1</div><h3>底线</h3><p>涉密资料、Agent 权限、自动修改设计必须先有边界。</p></div>
     </div>
   </section>
@@ -131,15 +131,20 @@
   </section>
 
   <section class="slide">
-    <h2>3. 近两周关键消息：只挑对架构有用的</h2>
+    <h2>3. 近两周关键消息与架构技术参考</h2>
     <table>
-      <thead><tr><th>事件</th><th>日期</th><th>可信度</th><th>影响等级</th><th>部门要理解什么</th><th>来源</th></tr></thead>
+      <thead><tr><th>分类</th><th>事件</th><th>日期</th><th>可信度</th><th>影响等级</th><th>部门要理解什么</th><th>来源</th></tr></thead>
       <tbody>
-        <tr><td>OpenAI GPT-5.6 受限预览</td><td>6/26</td><td>权威媒体，待官方细节补齐</td><td>高</td><td>Sol / Terra / Luna 分层，且因政府要求先小范围开放。模型供应要做备份。</td><td><a href="https://www.theguardian.com/technology/2026/jun/26/openai-ai-model-release-trump-us-sam-altman-gpt-anthropic-mythos">The Guardian</a></td></tr>
-        <tr><td>Anthropic Mythos / Fable 访问受限</td><td>6/24-6/27</td><td>权威媒体，多源交叉</td><td>高</td><td>网络安全能力成为模型发布门槛。强模型不一定能全球稳定可用。</td><td><a href="https://www.theverge.com/ai-artificial-intelligence/957327/anthropic-mythos-fable-ai-trump-administration-negotiations">The Verge</a></td></tr>
-        <tr><td>GLM-5.2 开放权重受关注</td><td>6/29</td><td>媒体报道，需实测验证</td><td>中高</td><td>国内开放模型正在提升自部署吸引力，适合内网文档和日志分析评估。</td><td><a href="https://www.theverge.com/ai-artificial-intelligence/958804/chinas-z-ai-glm-52-mythos-cybersecurity">The Verge</a></td></tr>
-        <tr><td>Sakana Fugu 多 Agent 报告</td><td>6/19</td><td>论文/技术报告</td><td>中</td><td>未来不是一个 AI 助手，而是多个专用 Agent 协作完成复杂任务。</td><td><a href="https://arxiv.org/abs/2606.21228">arXiv</a></td></tr>
-        <tr><td>端侧 RAG on Mobile NPU</td><td>6/9</td><td>论文/可复现实验线索</td><td>高</td><td>NPU 对 RAG 有明确能效收益，端侧知识库具备工程验证价值。</td><td><a href="https://arxiv.org/abs/2606.11257">arXiv</a></td></tr>
+        <tr><td>模型供应</td><td>OpenAI GPT-5.6 受限预览</td><td>6/26</td><td>权威媒体，待官方细节补齐</td><td>高</td><td>Sol / Terra / Luna 分层，且因政府要求先小范围开放。模型供应要做备份。</td><td><a href="https://www.theguardian.com/technology/2026/jun/26/openai-ai-model-release-trump-us-sam-altman-gpt-anthropic-mythos">The Guardian</a></td></tr>
+        <tr><td>模型安全</td><td>Anthropic Mythos / Fable 访问受限</td><td>6/24-6/27</td><td>权威媒体，多源交叉</td><td>高</td><td>网络安全能力成为模型发布门槛。强模型不一定能全球稳定可用。</td><td><a href="https://www.theverge.com/ai-artificial-intelligence/957327/anthropic-mythos-fable-ai-trump-administration-negotiations">The Verge</a></td></tr>
+        <tr><td>国产模型</td><td>GLM-5.2 开放权重受关注</td><td>6/29</td><td>媒体报道，需实测验证</td><td>中高</td><td>国内开放模型正在提升自部署吸引力，适合内网文档和日志分析评估。</td><td><a href="https://www.theverge.com/ai-artificial-intelligence/958804/chinas-z-ai-glm-52-mythos-cybersecurity">The Verge</a></td></tr>
+        <tr><td>Agent</td><td>Sakana Fugu 多 Agent 报告</td><td>6/19</td><td>论文/技术报告</td><td>中</td><td>未来不是一个 AI 助手，而是多个专用 Agent 协作完成复杂任务。</td><td><a href="https://arxiv.org/abs/2606.21228">arXiv</a></td></tr>
+        <tr><td>端侧 AI</td><td>端侧 RAG on Mobile NPU</td><td>6/9</td><td>论文/可复现实验线索</td><td>高</td><td>NPU 对 RAG 有明确能效收益，端侧知识库具备工程验证价值。</td><td><a href="https://arxiv.org/abs/2606.11257">arXiv</a></td></tr>
+        <tr><td>PCB / EDA</td><td>PCB-QA 数据集与评测</td><td>6/10</td><td>论文/公开数据集</td><td>高</td><td>LLM 可通过 JSON 化 PCB 表示理解连接、器件、datasheet 和仿真问题，适合先做审图问答。</td><td><a href="https://arxiv.org/abs/2606.23704">arXiv</a></td></tr>
+        <tr><td>PCB / EDA</td><td>GenAI for PCB 生命周期综述</td><td>6 月</td><td>论文综述</td><td>中高</td><td>AI 可覆盖规格、原理图、布局、验证、测试、制造，但短期应先落在审查和摘要。</td><td><a href="https://arxiv.org/abs/2606.17074">arXiv</a></td></tr>
+        <tr><td>基带 / 6G</td><td>Wireless Foundation Model</td><td>6/4</td><td>论文/技术参考</td><td>中高</td><td>通信网络正在从任务模型走向基础模型，基带团队可先做 3GPP RAG 和日志时间线。</td><td><a href="https://arxiv.org/abs/2606.06239">arXiv</a></td></tr>
+        <tr><td>AI Coding</td><td>AI 代码进入生产、人工 review 下降</td><td>6 月末</td><td>媒体报道，需结合内部实践验证</td><td>中高</td><td>脚本/插件开发会加速，但必须保留测试、review 和回滚，避免“清理税”。</td><td><a href="https://www.businessinsider.com/ai-coding-agents-cursor-human-review-2026-6">Business Insider</a></td></tr>
+        <tr><td>开发平台</td><td>GitHub AI coding 使用激增</td><td>6 月末</td><td>媒体报道</td><td>中</td><td>AI Coding 已成工具平台竞争焦点；部门工具链要考虑容量、成本和模型切换。</td><td><a href="https://www.businessinsider.com/github-best-month-ever-internal-meeting-2026-6">Business Insider</a></td></tr>
       </tbody>
     </table>
   </section>
@@ -298,6 +303,19 @@
       <div class="card"><h3>硬件 AI 工具</h3><p>跟踪 PCB-QA、EDA/CAE Copilot、Wireless Foundation Model、天线智能优化。</p></div>
     </div>
     <p class="small" style="margin-top:18px">主要来源：The Guardian、The Verge、Economic Times、Axios、arXiv。硬件细分方向近两周公开新闻不足处，使用 2026 年 6 月论文作为技术参考，并在正文中区分。</p>
+  </section>
+
+  <section class="slide">
+    <h2>15. 报告自检：下一版还可以继续提升什么</h2>
+    <table>
+      <thead><tr><th>自检项</th><th>当前状态</th><th>下一版优化</th></tr></thead>
+      <tbody>
+        <tr><td>消息覆盖</td><td>已覆盖模型供应、Agent、端侧 AI、PCB/EDA、基带/6G、AI Coding。</td><td>增加 Google / Qualcomm / MediaTek / ARM 等官方端侧 AI 消息。</td></tr>
+        <tr><td>传音特色</td><td>已增加弱网、多语言、中低端机、售后分散视角。</td><td>后续可按非洲、南亚、东南亚分别列 3 个 AI 场景。</td></tr>
+        <tr><td>落地抓手</td><td>已有公开 Skill、工具入口、30 天路线。</td><td>下一版增加“岗位负责人 + 样例输入 + 产出模板”。</td></tr>
+        <tr><td>可量化指标</td><td>已有成熟度评分，但还没有真实基线数据。</td><td>建议每月记录节省工时、准确率、返工率和风险事件。</td></tr>
+      </tbody>
+    </table>
   </section>
 </main>
 </body>
