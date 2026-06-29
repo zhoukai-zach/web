@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>手机架构部 · AI 技术洞察报告 · 2026-06-16~2026-06-29</title>
+<style>
+  :root {
+    --bg: #f4f7fb;
+    --paper: #ffffff;
+    --ink: #162033;
+    --muted: #5f6f85;
+    --line: #dbe4ef;
+    --blue: #2563eb;
+    --green: #0f766e;
+    --amber: #b7791f;
+    --red: #c2410c;
+    --soft-blue: #eaf2ff;
+    --soft-green: #e8f7f2;
+    --soft-amber: #fff7df;
+    --soft-red: #fff0eb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", Arial, sans-serif;
+    line-height: 1.62;
+    letter-spacing: 0;
+  }
+  .deck { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 28px 0 54px; }
+  .slide {
+    min-height: 560px;
+    margin: 18px 0;
+    padding: 34px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+  h1, h2, h3 { margin: 0; line-height: 1.18; letter-spacing: 0; }
+  h1 { font-size: 44px; font-weight: 900; max-width: 900px; }
+  h2 { font-size: 28px; font-weight: 900; margin-bottom: 18px; }
+  h3 { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+  p { color: var(--muted); margin: 0 0 10px; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .lead { font-size: 20px; max-width: 920px; color: #35445a; margin-top: 18px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0; }
+  .pill { border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; color: var(--muted); font-size: 13px; font-weight: 700; background: #fff; }
+  .pill.blue { background: var(--soft-blue); color: var(--blue); border-color: #c9ddff; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .card { border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: #fff; }
+  .card.blue { background: var(--soft-blue); border-color: #c9ddff; }
+  .card.green { background: var(--soft-green); border-color: #c8eadf; }
+  .card.amber { background: var(--soft-amber); border-color: #f1dca2; }
+  .card.red { background: var(--soft-red); border-color: #f4c7ba; }
+  .stat { font-size: 34px; font-weight: 900; color: var(--blue); margin-bottom: 4px; }
+  table { width: 100%; border-collapse: collapse; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #fff; font-size: 14px; }
+  th { background: #eef4fb; color: #26364d; text-align: left; padding: 12px 14px; font-size: 13px; }
+  td { border-top: 1px solid var(--line); padding: 12px 14px; vertical-align: top; color: #3e4d62; }
+  td:first-child { color: var(--ink); font-weight: 800; }
+  .callout { border-left: 5px solid var(--blue); background: var(--soft-blue); padding: 16px 18px; border-radius: 0 8px 8px 0; margin: 14px 0; }
+  .callout strong { color: var(--ink); }
+  .small { font-size: 13px; color: var(--muted); }
+  .bar { display: grid; grid-template-columns: 140px 1fr; gap: 12px; align-items: center; margin: 10px 0; }
+  .track { height: 10px; background: #e8eef6; border-radius: 999px; overflow: hidden; }
+  .fill { height: 100%; border-radius: 999px; background: var(--blue); }
+  .flow { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; align-items: stretch; margin-top: 18px; }
+  .flow .node { border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: #fff; min-height: 112px; }
+  .flow .node strong { display: block; margin-bottom: 6px; color: var(--ink); }
+  @media (max-width: 900px) {
+    .deck { width: min(100% - 22px, 1180px); }
+    .slide { min-height: auto; padding: 22px; }
+    .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+    h1 { font-size: 32px; }
+    .lead { font-size: 16px; }
+    .bar { grid-template-columns: 1fr; }
+  }
+  @media print {
+    body { background: #fff; }
+    .deck { width: 100%; padding: 0; }
+    .slide { page-break-after: always; margin: 0; border-radius: 0; min-height: auto; border: 0; }
+    .card, table, .callout { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<main class="deck">
+  <section class="slide">
+    <h1>手机架构部 · AI 技术洞察报告</h1>
+    <div class="pills">
+      <span class="pill blue">2026-06-16 ~ 2026-06-29</span>
+      <span class="pill">堆叠 / 结构 / PCB / 基带 / 射频 / 天线</span>
+      <span class="pill">分享展示版</span>
+    </div>
+    <p class="lead">这两周最重要的变化不是“又出了一个更强模型”，而是 AI 正在进入受控发布、端侧能效、Agent 工作流和硬件研发自动化并行推进的新阶段。</p>
+    <div class="grid-4" style="margin-top:28px">
+      <div class="card blue"><div class="stat">8</div><h3>技术方向</h3><p>模型、多模态、Agent、RAG、端侧 AI、AI Coding、AI for EDA/CAE、安全。</p></div>
+      <div class="card green"><div class="stat">6</div><h3>岗位映射</h3><p>每个岗位都给出“能试什么”，避免停留在新闻层面。</p></div>
+      <div class="card amber"><div class="stat">3</div><h3>本周 Demo</h3><p>堆叠卡片、PCB 审图问答、3GPP 规范 RAG。</p></div>
+      <div class="card red"><div class="stat">1</div><h3>底线</h3><p>涉密资料、Agent 权限、自动修改设计必须先有边界。</p></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <h2>1. 核心结论</h2>
+    <div class="grid-2">
+      <div class="card blue"><h3>为什么重要</h3><p>前沿模型开始被安全审查和区域访问限制影响。手机厂商不能把关键 AI 功能绑定在单一海外 API 上。</p></div>
+      <div class="card green"><h3>对手机影响</h3><p>AI Phone 的核心会从“接一个聊天模型”转向“端侧模型 + 云端模型 + 本地知识库 + 系统权限”的组合架构。</p></div>
+      <div class="card red"><h3>本周风险</h3><p>Agent 能调用工具后，误操作风险明显变大；PLM、BOM、服务器、项目资料不能直接开放写权限。</p></div>
+      <div class="card amber"><h3>本周机会</h3><p>端侧 RAG 和 PCB-QA 等研究把 AI 从概念带到工程评测，适合架构部做小范围试点。</p></div>
+    </div>
+    <div class="callout"><strong>核心建议：</strong>我们不追“哪个模型最强”，而是建立模型可替换、数据可控、岗位可落地的部门 AI 能力。</div>
+  </section>
+
+  <section class="slide">
+    <h2>2. AI 技术雷达：部门至少要懂这 8 类</h2>
+    <div class="grid-4">
+      <div class="card"><h3>大模型</h3><p>负责长文档、推理、代码、总结。关注模型能力、价格、访问限制。</p></div>
+      <div class="card"><h3>多模态</h3><p>让模型看图、读表、理解拆机图和结构截图。关注图片质量和可验证性。</p></div>
+      <div class="card"><h3>Agent</h3><p>让 AI 调工具做任务。关注权限、日志、回滚和人工确认。</p></div>
+      <div class="card"><h3>RAG</h3><p>先检索资料再回答。适合规范、历史问题单、项目文档。</p></div>
+      <div class="card"><h3>端侧 AI</h3><p>在手机或本地设备上推理。关注 NPU、内存、功耗、热和隐私。</p></div>
+      <div class="card"><h3>AI Coding</h3><p>生成脚本、插件、自动化工具。适合 Creo、EDA、日志处理。</p></div>
+      <div class="card"><h3>AI for EDA/CAE</h3><p>辅助审图、仿真摘要、参数扫描。短期先做检查，不直接闭环设计。</p></div>
+      <div class="card"><h3>AI 安全</h3><p>防幻觉、防泄密、防误操作。任何上线流程都要先过安全边界。</p></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <h2>3. 近两周关键消息：只挑对架构有用的</h2>
+    <table>
+      <thead><tr><th>事件</th><th>日期</th><th>可信度</th><th>影响等级</th><th>部门要理解什么</th><th>来源</th></tr></thead>
+      <tbody>
+        <tr><td>OpenAI GPT-5.6 受限预览</td><td>6/26</td><td>权威媒体，待官方细节补齐</td><td>高</td><td>Sol / Terra / Luna 分层，且因政府要求先小范围开放。模型供应要做备份。</td><td><a href="https://www.theguardian.com/technology/2026/jun/26/openai-ai-model-release-trump-us-sam-altman-gpt-anthropic-mythos">The Guardian</a></td></tr>
+        <tr><td>Anthropic Mythos / Fable 访问受限</td><td>6/24-6/27</td><td>权威媒体，多源交叉</td><td>高</td><td>网络安全能力成为模型发布门槛。强模型不一定能全球稳定可用。</td><td><a href="https://www.theverge.com/ai-artificial-intelligence/957327/anthropic-mythos-fable-ai-trump-administration-negotiations">The Verge</a></td></tr>
+        <tr><td>GLM-5.2 开放权重受关注</td><td>6/29</td><td>媒体报道，需实测验证</td><td>中高</td><td>国内开放模型正在提升自部署吸引力，适合内网文档和日志分析评估。</td><td><a href="https://www.theverge.com/ai-artificial-intelligence/958804/chinas-z-ai-glm-52-mythos-cybersecurity">The Verge</a></td></tr>
+        <tr><td>Sakana Fugu 多 Agent 报告</td><td>6/19</td><td>论文/技术报告</td><td>中</td><td>未来不是一个 AI 助手，而是多个专用 Agent 协作完成复杂任务。</td><td><a href="https://arxiv.org/abs/2606.21228">arXiv</a></td></tr>
+        <tr><td>端侧 RAG on Mobile NPU</td><td>6/9</td><td>论文/可复现实验线索</td><td>高</td><td>NPU 对 RAG 有明确能效收益，端侧知识库具备工程验证价值。</td><td><a href="https://arxiv.org/abs/2606.11257">arXiv</a></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="slide">
+    <h2>4. 模型与工具怎么选：不要“一把尺子量所有任务”</h2>
+    <table>
+      <thead><tr><th>任务类型</th><th>推荐模型 / 工具</th><th>资料等级</th><th>注意事项</th></tr></thead>
+      <tbody>
+        <tr><td>公开资料调研</td><td>GPT-5.6 Terra / Gemini / Qwen / Kimi</td><td>公开</td><td>追求速度和覆盖面，要求附 URL。</td></tr>
+        <tr><td>涉密文档摘要</td><td>GLM / Qwen / DeepSeek 内网部署</td><td>内部 / 涉密</td><td>禁止直接上公网模型。</td></tr>
+        <tr><td>历史项目问答</td><td>RAG + 国内模型 / 端侧小模型</td><td>内部</td><td>答案必须返回来源文件和页码。</td></tr>
+        <tr><td>脚本和插件开发</td><td>Codex / Claude Code / Cursor</td><td>代码可控</td><td>先在沙箱跑测试，不能直接改生产环境。</td></tr>
+        <tr><td>图片/拆机图理解</td><td>多模态模型 + 人工复核</td><td>公开或授权</td><td>尺寸、材料、净空不能只信模型口述。</td></tr>
+        <tr><td>低成本批处理</td><td>Luna 类低价模型 / 小模型</td><td>低风险</td><td>适合分类、命名、初筛，不适合最终判断。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="slide">
+    <h2>5. 端侧 AI 架构：手机架构部最该领先的部分</h2>
+    <div class="grid-3">
+      <div class="card blue"><h3>NPU / APU</h3><p>关注算子覆盖、prefill/decode、embedding、rerank、ASR、视觉 encoder 的功耗曲线。</p></div>
+      <div class="card green"><h3>内存与存储</h3><p>关注 1B/3B/7B 模型量化、KV Cache、向量索引、模型按需加载。</p></div>
+      <div class="card amber"><h3>端侧 RAG</h3><p>适合个人知识库、相册问答、设备说明书、离线客服；核心是隐私和弱网。</p></div>
+      <div class="card"><h3>端云协同</h3><p>端侧做隐私和低延迟，云端做复杂推理；弱网时自动降级。</p></div>
+      <div class="card"><h3>功耗与热</h3><p>Agent 是连续负载，不是短峰值；要测 10 分钟对话、检索、摘要。</p></div>
+      <div class="card"><h3>系统权限</h3><p>AI 调相机、文件、日历、通讯录时，必须任务级授权和可撤销。</p></div>
+    </div>
+    <div class="callout"><strong>一句话：</strong>AI Phone 的架构壁垒在端云调度、NPU 能效、隐私权限和区域化数据，不在聊天入口。</div>
+  </section>
+
+  <section class="slide">
+    <h2>6. AI Phone 架构参考框图：把 AI 当系统能力设计</h2>
+    <div class="flow">
+      <div class="node"><strong>用户场景</strong><p>翻译、相册问答、设备自诊断、学习助手、售后客服。</p></div>
+      <div class="node"><strong>系统权限层</strong><p>文件、相机、日历、通讯录、位置等任务级授权。</p></div>
+      <div class="node"><strong>端侧小模型</strong><p>低延迟、隐私、弱网可用；承担识别、摘要、初筛。</p></div>
+      <div class="node"><strong>本地 RAG</strong><p>检索说明书、用户资料、历史记录，再交给模型回答。</p></div>
+      <div class="node"><strong>云端大模型</strong><p>复杂推理、多步 Agent、跨语言高质量生成。</p></div>
+      <div class="node"><strong>安全审计</strong><p>来源追溯、操作日志、敏感动作确认、可撤销。</p></div>
+    </div>
+    <div class="callout"><strong>架构判断：</strong>AI Phone 不是“预装一个聊天 App”，而是 OS 权限、端侧算力、云端模型、本地知识和审计机制的组合。</div>
+  </section>
+
+  <section class="slide">
+    <h2>7. 传音重点市场视角：AI 功能要适配弱网和低成本</h2>
+    <table>
+      <thead><tr><th>市场特征</th><th>用户痛点</th><th>优先 AI 场景</th><th>架构要求</th></tr></thead>
+      <tbody>
+        <tr><td>非洲 / 南亚弱网</td><td>网络不稳定、流量贵</td><td>离线翻译、网页摘要、低流量搜索</td><td>端侧模型 + 缓存 + 弱网降级</td></tr>
+        <tr><td>多语言环境</td><td>英语、法语、阿语、本地语言混用</td><td>通话/会议摘要、多语种输入、学习助手</td><td>端云 ASR + 小模型摘要 + 语言包管理</td></tr>
+        <tr><td>中低端机占比高</td><td>RAM、存储、功耗预算有限</td><td>轻量助手、图片/文本初筛、设备自诊断</td><td>1B/3B 小模型、int4/int8 量化、按需加载</td></tr>
+        <tr><td>售后服务分散</td><td>用户不会描述故障、服务成本高</td><td>设备自诊断、维修知识库问答、故障日志摘要</td><td>本地日志摘要 + 云端知识库 + 人工转接</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="slide">
+    <h2>8. 架构部 AI 成熟度评分表：知道差距才不会落后</h2>
+    <table>
+      <thead><tr><th>等级</th><th>能力状态</th><th>典型表现</th><th>下一步</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>没用过</td><td>只听过 AI 新闻，不知道能解决什么工程问题。</td><td>完成一次公开资料调研。</td></tr>
+        <tr><td>1</td><td>会问答</td><td>能让模型解释概念、总结公开资料。</td><td>要求答案带来源，避免幻觉。</td></tr>
+        <tr><td>2</td><td>会做资料摘要</td><td>能摘要 PD、测试报告、规范片段。</td><td>沉淀岗位提示词模板。</td></tr>
+        <tr><td>3</td><td>能跑 Skill</td><td>能用固定流程生成表格、报告、审查清单。</td><td>把高频任务做成部门 Skill。</td></tr>
+        <tr><td>4</td><td>接入内部资料</td><td>能基于文档库、问题单、测试库做 RAG。</td><td>只读 MCP + 权限分级。</td></tr>
+        <tr><td>5</td><td>形成稳定流程</td><td>AI 输出进入评审、试验、复盘闭环。</td><td>度量节省时间、准确率、风险事件。</td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><strong>建议目标：</strong>一个月内让每个岗位至少达到 3 级；平台/工具负责人推进 4 级试点。</div>
+  </section>
+
+  <section class="slide">
+    <h2>9. 六岗位速查：每个岗位先做一个能落地的点</h2>
+    <table>
+      <thead><tr><th>岗位</th><th>AI 能帮什么</th><th>先试什么</th><th>不建议一开始做什么</th></tr></thead>
+      <tbody>
+        <tr><td>堆叠</td><td>拆机图理解、竞品堆叠卡片、热源/净空提取</td><td>5 个历史项目生成堆叠卡片</td><td>直接让 AI 判断结构方案优劣</td></tr>
+        <tr><td>结构</td><td>DFM 检查、跌落/热报告摘要、变更影响分析</td><td>结构评审三 Agent</td><td>直接自动改 CAD 主模型</td></tr>
+        <tr><td>PCB</td><td>网表问答、DRC/ERC 摘要、datasheet 检查</td><td>网表 JSON + 20 条审图问答</td><td>直接自动 Layout</td></tr>
+        <tr><td>基带</td><td>3GPP 规范问答、RRC/NAS trace 时间线</td><td>规范 RAG + 1 份日志解释</td><td>让 AI 单独定根因</td></tr>
+        <tr><td>射频</td><td>S 参数摘要、匹配网络案例检索、异常归因</td><td>RF Case RAG</td><td>自动闭环改匹配参数</td></tr>
+        <tr><td>天线</td><td>净空审查、频段知识库、CST/HFSS 参数扫描脚本</td><td>天线净空审查 Skill</td><td>直接生成量产天线方案</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="slide">
+    <h2>10. AI for 硬件研发：成熟度判断</h2>
+    <div class="bar"><strong>资料检索 / 摘要</strong><div class="track"><div class="fill" style="width:88%"></div></div></div>
+    <div class="bar"><strong>报告生成 / 复盘</strong><div class="track"><div class="fill" style="width:82%"></div></div></div>
+    <div class="bar"><strong>审查 / 问题初筛</strong><div class="track"><div class="fill" style="width:68%"></div></div></div>
+    <div class="bar"><strong>仿真脚本 / 参数扫描</strong><div class="track"><div class="fill" style="width:55%"></div></div></div>
+    <div class="bar"><strong>自动设计闭环</strong><div class="track"><div class="fill" style="width:22%"></div></div></div>
+    <div class="callout"><strong>建议：</strong>2026 年部门落地顺序应是“检索摘要 → 审查初筛 → 脚本自动化 → 人工确认后半自动优化”，不要跳到全自动设计。</div>
+  </section>
+
+  <section class="slide">
+    <h2>11. 网上公开 Skill / 模板资源：优先学这些</h2>
+    <table>
+      <thead><tr><th>公开资源</th><th>适用岗位</th><th>内容介绍</th><th>下载 / 地址</th><th>第一步怎么试</th></tr></thead>
+      <tbody>
+        <tr><td>Agent Skills 官方规范</td><td>全员 / 工具负责人</td><td>开放 Skill 标准：一个文件夹 + SKILL.md + 可选 scripts/references/assets。</td><td><a href="https://agentskills.io/">agentskills.io</a></td><td>照 Quickstart 写一个“测试报告摘要 Skill”。</td></tr>
+        <tr><td>Agent Skills GitHub</td><td>工具负责人</td><td>官方开源规范仓库，适合学习 Skill 文件结构和最佳实践。</td><td><a href="https://github.com/agentskills/agentskills">github.com/agentskills/agentskills</a></td><td>下载模板，改成部门 Skill 命名规范。</td></tr>
+        <tr><td>Claude Code Docs - Skills</td><td>脚本 / 自动化</td><td>介绍如何用 skills、hooks、MCP 扩展 Claude Code 工作流。</td><td><a href="https://code.claude.com/docs">code.claude.com/docs</a></td><td>用一个公开 repo 试“读代码 + 生成测试”。</td></tr>
+        <tr><td>MCP Reference Servers</td><td>IT / 平台 / 自动化</td><td>官方参考 MCP servers：filesystem、git、memory、fetch 等。</td><td><a href="https://github.com/modelcontextprotocol/servers">github.com/modelcontextprotocol/servers</a></td><td>先试 filesystem 只读目录，不接敏感系统。</td></tr>
+        <tr><td>awesome-mcp-servers</td><td>平台 / 预研</td><td>社区整理的 MCP server 清单，便于找数据库、浏览器、文档类连接器。</td><td><a href="https://github.com/punkpeye/awesome-mcp-servers">github.com/punkpeye/awesome-mcp-servers</a></td><td>筛选文档库、数据库、浏览器自动化三类。</td></tr>
+        <tr><td>Claude Cookbooks</td><td>预研 / 工具开发</td><td>Anthropic 示例与 recipes，可参考长文档、工具调用、结构化输出做法。</td><td><a href="https://github.com/anthropics/claude-cookbooks">github.com/anthropics/claude-cookbooks</a></td><td>挑一个文档问答示例改成规范 RAG。</td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><strong>筛选原则：</strong>优先选官方规范、活跃 GitHub、可本地运行、权限可控的资源；不要直接把未知 Skill 接到内部资料。</div>
+  </section>
+
+  <section class="slide">
+    <h2>12. 推荐外部工具与学习入口：把“知道 AI”变成“会用 AI”</h2>
+    <table>
+      <thead><tr><th>资源</th><th>适合谁</th><th>学什么 / 用什么</th><th>官方地址</th></tr></thead>
+      <tbody>
+        <tr><td>OpenAI Codex</td><td>自动化 / 工具开发</td><td>代码生成、调试、批量改文件、生成 Creo/EDA 辅助脚本。</td><td><a href="https://developers.openai.com/codex/">developers.openai.com/codex</a></td></tr>
+        <tr><td>Claude Code</td><td>脚本 / 插件 / 多 Agent</td><td>读代码库、改文件、跑命令、接 MCP、创建团队共享 workflows。</td><td><a href="https://code.claude.com/docs">code.claude.com/docs</a></td></tr>
+        <tr><td>Model Context Protocol</td><td>IT / 平台 / 自动化</td><td>把 AI 接到文档库、数据库、PLM、问题单系统；先从只读 MCP 开始。</td><td><a href="https://modelcontextprotocol.io/docs/getting-started/intro">modelcontextprotocol.io</a></td></tr>
+        <tr><td>Cursor Docs</td><td>软件 / 脚本开发</td><td>Agent、Rules、MCP、代码上下文管理，适合部门工具快速原型。</td><td><a href="https://cursor.com/docs">cursor.com/docs</a></td></tr>
+        <tr><td>arXiv AI + EDA/通信</td><td>预研 / 基带 / PCB / 天线</td><td>跟踪 PCB-QA、Wireless Foundation Model、端侧 RAG、天线智能优化。</td><td><a href="https://arxiv.org/">arxiv.org</a></td></tr>
+        <tr><td>Hugging Face Models</td><td>内网模型评估</td><td>查找可本地部署模型、embedding、rerank、小模型和量化版本。</td><td><a href="https://huggingface.co/models">huggingface.co/models</a></td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><strong>使用顺序：</strong>先学 Codex/Claude Code 做自动化，再学 MCP 接内部资料，最后评估本地模型和端侧模型。</div>
+  </section>
+
+  <section class="slide">
+    <h2>13. 30 天导入路线：从资源清单到部门试点</h2>
+    <table>
+      <thead><tr><th>阶段</th><th>要做什么</th><th>推荐 Skill / 工具</th><th>验收产出</th></tr></thead>
+      <tbody>
+        <tr><td>第 1 周</td><td>基于公开 Agent Skills 规范建立部门 Skill 模板</td><td>Agent Skills 官方规范、Claude Code Docs</td><td>一份共享模板 + 使用说明 + 责任人</td></tr>
+        <tr><td>第 2 周</td><td>跑通 3 个真实历史案例：堆叠卡片、PCB 问答、规范 RAG</td><td>Codex / Claude Code / 自建 Skill</td><td>3 份可复核输出文件，记录节省时间和错误点</td></tr>
+        <tr><td>第 3 周</td><td>做一个只读知识库 Demo：规范 / 问题单 / 测试报告 RAG</td><td>MCP + RAG + 内网模型</td><td>回答必须带来源路径、页码或问题单编号</td></tr>
+        <tr><td>第 4 周</td><td>形成部门 AI 使用规范和试点清单</td><td>Codex / Claude Code / MCP</td><td>资料分级、上云边界、人工确认点、下一批 5 个场景</td></tr>
+      </tbody>
+    </table>
+    <div class="grid-3" style="margin-top:16px">
+      <div class="card green"><h3>首批推荐 Demo</h3><p>堆叠卡片、PCB 网表问答、3GPP 规范 RAG。</p></div>
+      <div class="card amber"><h3>准入门槛</h3><p>只读优先、来源可追溯、关键结论人工确认。</p></div>
+      <div class="card red"><h3>暂缓事项</h3><p>自动写 PLM、自动改 CAD/PCB、自动给最终设计结论。</p></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <h2>14. 下周关注点</h2>
+    <div class="grid-2">
+      <div class="card blue"><h3>模型供应</h3><p>GPT-5.6 是否扩大访问；GLM-5.2、Qwen、DeepSeek 的代码和长文档评测是否有新结果。</p></div>
+      <div class="card green"><h3>端侧验证</h3><p>把端侧 RAG 的 NPU 能效测试迁移到手机 SoC，至少建立 1B/3B 小模型基准。</p></div>
+      <div class="card amber"><h3>Agent 安全</h3><p>继续关注 Agent 权限事故、红队评测和企业治理框架。</p></div>
+      <div class="card"><h3>硬件 AI 工具</h3><p>跟踪 PCB-QA、EDA/CAE Copilot、Wireless Foundation Model、天线智能优化。</p></div>
+    </div>
+    <p class="small" style="margin-top:18px">主要来源：The Guardian、The Verge、Economic Times、Axios、arXiv。硬件细分方向近两周公开新闻不足处，使用 2026 年 6 月论文作为技术参考，并在正文中区分。</p>
+  </section>
+</main>
+</body>
+</html>
