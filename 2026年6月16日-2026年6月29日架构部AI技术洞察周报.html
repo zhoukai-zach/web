@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>手机架构部 · AI 技术洞察报告 · 2026-06-16~2026-06-29</title>
+<style>
+  :root {
+    --bg: #f4f7fb;
+    --paper: #ffffff;
+    --ink: #162033;
+    --muted: #5f6f85;
+    --line: #dbe4ef;
+    --blue: #2563eb;
+    --green: #0f766e;
+    --amber: #b7791f;
+    --red: #c2410c;
+    --soft-blue: #eaf2ff;
+    --soft-green: #e8f7f2;
+    --soft-amber: #fff7df;
+    --soft-red: #fff0eb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", Arial, sans-serif;
+    line-height: 1.62;
+    letter-spacing: 0;
+  }
+  .deck { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 28px 0 54px; }
+  .slide {
+    min-height: 560px;
+    margin: 18px 0;
+    padding: 34px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+  h1, h2, h3 { margin: 0; line-height: 1.18; letter-spacing: 0; }
+  h1 { font-size: 44px; font-weight: 900; max-width: 900px; }
+  h2 { font-size: 28px; font-weight: 900; margin-bottom: 18px; }
+  h3 { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+  h4 { font-size: 15px; font-weight: 800; margin: 0 0 6px; color: var(--ink); }
+  p { color: var(--muted); margin: 0 0 10px; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .lead { font-size: 20px; max-width: 920px; color: #35445a; margin-top: 18px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0; }
+  .pill { border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; color: var(--muted); font-size: 13px; font-weight: 700; background: #fff; }
+  .pill.blue { background: var(--soft-blue); color: var(--blue); border-color: #c9ddff; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .card { border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: #fff; }
+  .card.blue { background: var(--soft-blue); border-color: #c9ddff; }
+  .card.green { background: var(--soft-green); border-color: #c8eadf; }
+  .card.amber { background: var(--soft-amber); border-color: #f1dca2; }
+  .card.red { background: var(--soft-red); border-color: #f4c7ba; }
+  .stat { font-size: 34px; font-weight: 900; color: var(--blue); margin-bottom: 4px; }
+  table { width: 100%; border-collapse: collapse; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #fff; font-size: 13px; }
+  th { background: #eef4fb; color: #26364d; text-align: left; padding: 10px 12px; font-size: 12px; }
+  td { border-top: 1px solid var(--line); padding: 10px 12px; vertical-align: top; color: #3e4d62; }
+  td:first-child { color: var(--ink); font-weight: 800; }
+  .callout { border-left: 5px solid var(--blue); background: var(--soft-blue); padding: 16px 18px; border-radius: 0 8px 8px 0; margin: 14px 0; }
+  .callout strong { color: var(--ink); }
+  .small { font-size: 13px; color: var(--muted); }
+  .bar { display: grid; grid-template-columns: 160px 1fr 80px; gap: 12px; align-items: center; margin: 10px 0; }
+  .track { height: 10px; background: #e8eef6; border-radius: 999px; overflow: hidden; }
+  .fill { height: 100%; border-radius: 999px; background: var(--blue); }
+  .fill.green { background: var(--green); }
+  .fill.amber { background: var(--amber); }
+  .fill.red { background: var(--red); }
+  .flow { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; align-items: stretch; margin-top: 18px; }
+  .flow .node { border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: #fff; min-height: 112px; }
+  .flow .node strong { display: block; margin-bottom: 6px; color: var(--ink); }
+  .impact-list { margin: 8px 0 0; padding-left: 18px; color: var(--muted); font-size: 13px; }
+  .impact-list li { margin-bottom: 4px; }
+  .trend-num { display: inline-block; width: 28px; height: 28px; line-height: 28px; text-align: center; border-radius: 50%; background: var(--soft-blue); color: var(--blue); font-weight: 900; font-size: 14px; margin-right: 8px; }
+  .section-label { font-size: 12px; font-weight: 800; color: var(--blue); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 10px; }
+  @media (max-width: 900px) {
+    .deck { width: min(100% - 22px, 1180px); }
+    .slide { min-height: auto; padding: 22px; }
+    .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+    h1 { font-size: 32px; }
+    .lead { font-size: 16px; }
+    .bar { grid-template-columns: 1fr; }
+    .flow { grid-template-columns: 1fr 1fr; }
+  }
+  @media print {
+    body { background: #fff; }
+    .deck { width: 100%; padding: 0; }
+    .slide { page-break-after: always; margin: 0; border-radius: 0; min-height: auto; border: 0; }
+    .card, table, .callout { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<main class="deck">
+
+  <!-- 封面 -->
+  <section class="slide">
+    <h1>手机架构部 · AI 技术洞察报告</h1>
+    <div class="pills">
+      <span class="pill blue">2026-06-16 ~ 2026-06-29</span>
+      <span class="pill">堆叠 / 结构 / PCB / 基带 / 射频 / 天线</span>
+      <span class="pill">技术洞察版</span>
+    </div>
+    <p class="lead">这两周最重要的变化不是"又出了一个更强模型"，而是 AI 正在进入受控发布、端侧能效、Agent 工作流和硬件研发自动化并行推进的新阶段。</p>
+    <div class="grid-4" style="margin-top:28px">
+      <div class="card blue"><div class="stat">4</div><h3>技术动态分类</h3><p>前沿模型、Agent、端侧 AI、AI for Engineering。</p></div>
+      <div class="card green"><div class="stat">5</div><h3>趋势判断</h3><p>从新闻提炼可跟踪的技术方向，而非工具清单。</p></div>
+      <div class="card amber"><div class="stat">10</div><h3>关键动态</h3><p>近两周模型、Agent、端侧、工程研发四类技术事件。</p></div>
+      <div class="card red"><div class="stat">1</div><h3>底线</h3><p>涉密资料、Agent 权限、自动修改设计必须先有边界。</p></div>
+    </div>
+  </section>
+
+  <!-- 1. 核心结论 -->
+  <section class="slide">
+    <h2>1. 核心结论</h2>
+    <div class="grid-2">
+      <div class="card blue"><h3>技术判断</h3><p>前沿模型开始被安全审查和区域访问限制影响。手机厂商不能把关键 AI 功能绑定在单一海外 API 上，需要"模型可替换 + 数据可控"的双供应链。</p></div>
+      <div class="card green"><h3>架构影响</h3><p>AI Phone 的核心从"接一个聊天模型"转向"端侧模型 + 云端模型 + 本地知识库 + 系统权限"的组合架构。壁垒在端云调度与 NPU 能效，不在聊天入口。</p></div>
+      <div class="card red"><h3>本周风险</h3><p>Agent 能调用工具后误操作风险明显变大；PLM、BOM、服务器、项目资料不能直接开放写权限。强模型不一定能全球稳定可用。</p></div>
+      <div class="card amber"><h3>本周机会</h3><p>端侧 RAG 和 PCB-QA 等研究把 AI 从概念带到工程评测；GLM-5.2 等开放权重模型提升内网自部署吸引力，适合架构部做小范围试点。</p></div>
+    </div>
+    <div class="callout"><strong>一句话：</strong>我们不追"哪个模型最强"，而是跟踪 AI 技术怎么变、对手机架构意味着什么、哪些方向值得试点。</div>
+  </section>
+
+  <!-- 2. 近两周 AI 关键动态 -->
+  <section class="slide">
+    <h2>2. 近两周 AI 关键动态</h2>
+    <p class="small" style="margin-bottom:16px">按四类技术方向组织。</p>
+
+    <div class="section-label">前沿模型</div>
+    <table style="margin-bottom:16px">
+      <thead><tr><th>事件</th><th>日期</th><th>要点</th><th>来源</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>OpenAI GPT-5.6 受限预览</td><td>6/26</td>
+          <td>Sol / Terra / Luna 分层发布；因政府要求先小范围开放。模型供应要做备份方案。</td>
+          <td><a href="https://www.theguardian.com/technology/2026/jun/26/openai-ai-model-release-trump-us-sam-altman-gpt-anthropic-mythos">The Guardian</a></td>
+        </tr>
+        <tr>
+          <td>Anthropic Mythos / Fable 访问受限</td><td>6/24-27</td>
+          <td>网络安全能力成为模型发布门槛；强模型全球可用性下降。</td>
+          <td><a href="https://www.theverge.com/ai-artificial-intelligence/957327/anthropic-mythos-fable-ai-trump-administration-negotiations">The Verge</a></td>
+        </tr>
+        <tr>
+          <td>GLM-5.2 开放权重受关注</td><td>6/29</td>
+          <td>国内开放模型提升自部署吸引力，适合内网文档和日志分析评估。</td>
+          <td><a href="https://www.theverge.com/ai-artificial-intelligence/958804/chinas-z-ai-glm-52-mythos-cybersecurity">The Verge</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-label">Agent</div>
+    <table style="margin-bottom:16px">
+      <thead><tr><th>事件</th><th>日期</th><th>要点</th><th>来源</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Sakana Fugu 多 Agent 报告</td><td>6/19</td>
+          <td>未来不是一个 AI 助手，而是多个专用 Agent 协作完成复杂任务。</td>
+          <td><a href="https://arxiv.org/abs/2606.21228">arXiv</a></td>
+        </tr>
+        <tr>
+          <td>AI 代码进入生产、人工 review 下降</td><td>6 月末</td>
+          <td>脚本/插件开发加速，但必须保留测试、review 和回滚。</td>
+          <td><a href="https://www.businessinsider.com/ai-coding-agents-cursor-human-review-2026-6">Business Insider</a></td>
+        </tr>
+        <tr>
+          <td>GitHub AI coding 使用激增</td><td>6 月末</td>
+          <td>AI Coding 已成工具平台竞争焦点；部门工具链需考虑容量和模型切换。</td>
+          <td><a href="https://www.businessinsider.com/github-best-month-ever-internal-meeting-2026-6">Business Insider</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-label">端侧 AI</div>
+    <table style="margin-bottom:16px">
+      <thead><tr><th>事件</th><th>日期</th><th>要点</th><th>来源</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>端侧 RAG on Mobile NPU</td><td>6/9</td>
+          <td>NPU 对 RAG 有明确能效收益；端侧知识库具备工程验证价值。</td>
+          <td><a href="https://arxiv.org/abs/2606.11257">arXiv</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="grid-3" style="margin-bottom:16px">
+      <div class="card blue"><h4>端云协同</h4><p>端侧做隐私和低延迟，云端做复杂推理；弱网时自动降级。</p></div>
+      <div class="card green"><h4>小模型趋势</h4><p>1B/3B 量化模型成为中低端机 AI 基础能力。关注按需加载与 ROM 占用。</p></div>
+      <div class="card amber"><h4>系统权限</h4><p>AI 调相机、文件、日历、通讯录时，必须任务级授权和可撤销。</p></div>
+    </div>
+
+    <div class="section-label">AI for Engineering</div>
+    <table>
+      <thead><tr><th>事件</th><th>日期</th><th>要点</th><th>来源</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>PCB-QA 数据集与评测</td><td>6/10</td>
+          <td>LLM 可通过 JSON 化 PCB 表示理解连接、器件、datasheet 和仿真问题。</td>
+          <td><a href="https://arxiv.org/abs/2606.23704">arXiv</a></td>
+        </tr>
+        <tr>
+          <td>GenAI for PCB 生命周期综述</td><td>6 月</td>
+          <td>AI 可覆盖规格、原理图、布局、验证、测试、制造；短期应先落在审查和摘要。</td>
+          <td><a href="https://arxiv.org/abs/2606.17074">arXiv</a></td>
+        </tr>
+        <tr>
+          <td>Wireless Foundation Model</td><td>6/4</td>
+          <td>通信网络从任务模型走向基础模型；基带团队可先做 3GPP RAG 和日志时间线。</td>
+          <td><a href="https://arxiv.org/abs/2606.06239">arXiv</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 3. 五大技术趋势判断 -->
+  <section class="slide">
+    <h2>3. 五大技术趋势判断</h2>
+    <p class="small" style="margin-bottom:16px">从近两周新闻中提炼的可跟踪方向，供架构部持续观察。</p>
+    <div class="grid-2">
+      <div class="card blue">
+        <h3><span class="trend-num">1</span>前沿模型进入受控发布</h3>
+        <p>GPT-5.6、Mythos/Fable 均因安全审查先小范围开放。模型能力≠全球可用性。手机厂商需建立多供应商、多区域、可降级策略。</p>
+        <p class="small"><strong>观察信号：</strong>各厂商 API 开放范围、区域限制政策、红队评测要求。</p>
+      </div>
+      <div class="card green">
+        <h3><span class="trend-num">2</span>开源/开放模型成为企业第二供应链</h3>
+        <p>GLM-5.2 等开放权重模型提升内网自部署吸引力。适合涉密文档、日志分析、规范 RAG 等数据不出域场景。</p>
+        <p class="small"><strong>观察信号：</strong>开放模型 benchmark、量化版本、NPU 移植进展。</p>
+      </div>
+      <div class="card amber">
+        <h3><span class="trend-num">3</span>Agent 从聊天走向执行</h3>
+        <p>Fugu 多 Agent、AI Coding Agent 表明 AI 正从"回答问题"转向"调用工具完成任务"。权限、日志、回滚和人工确认成为刚需。</p>
+        <p class="small"><strong>观察信号：</strong>Agent 事故案例、企业治理框架、MCP 生态成熟度。</p>
+      </div>
+      <div class="card">
+        <h3><span class="trend-num">4</span>端侧 AI 从体验卖点变成架构能力</h3>
+        <p>端侧 RAG on NPU 论文验证能效优势。AI Phone 壁垒在端云调度、NPU 算子覆盖、隐私权限，而非预装聊天 App。</p>
+        <p class="small"><strong>观察信号：</strong>Qualcomm/MediaTek NPU SDK、1B/3B 端侧模型、弱网降级方案。</p>
+      </div>
+    </div>
+    <div class="card red" style="margin-top:14px">
+      <h3><span class="trend-num">5</span>AI 开始进入硬件研发流程</h3>
+      <p>PCB-QA、GenAI for PCB 综述、Wireless Foundation Model 表明 LLM 正进入 EDA/CAE/通信研发。短期价值在审查和摘要，不在自动闭环设计。</p>
+      <p class="small"><strong>观察信号：</strong>PCB 审图问答准确率、3GPP RAG 效果、仿真脚本自动化成熟度。</p>
+    </div>
+  </section>
+
+  <!-- 4. 技术成熟度曲线 -->
+  <section class="slide">
+    <h2>4. 技术成熟度曲线</h2>
+    <p class="small" style="margin-bottom:16px">按技术方向评估成熟度，指导投入节奏——比部门个人技能成熟度更贴近"技术洞察"。</p>
+
+    <div class="card green" style="margin-bottom:14px">
+      <h3>已可规模化</h3>
+      <div class="bar"><strong>资料摘要 / 调研</strong><div class="track"><div class="fill green" style="width:88%"></div></div><span class="small">成熟</span></div>
+      <div class="bar"><strong>代码 / 脚本生成</strong><div class="track"><div class="fill green" style="width:85%"></div></div><span class="small">成熟</span></div>
+      <div class="bar"><strong>RAG 问答（规范/文档）</strong><div class="track"><div class="fill green" style="width:82%"></div></div><span class="small">成熟</span></div>
+      <p class="small">可立即在部门推广；要求答案带来源、关键结论人工确认。</p>
+    </div>
+
+    <div class="card amber" style="margin-bottom:14px">
+      <h3>可试点</h3>
+      <div class="bar"><strong>端侧 RAG（NPU 能效）</strong><div class="track"><div class="fill amber" style="width:62%"></div></div><span class="small">试点</span></div>
+      <div class="bar"><strong>PCB 审图问答</strong><div class="track"><div class="fill amber" style="width:58%"></div></div><span class="small">试点</span></div>
+      <div class="bar"><strong>多 Agent 流程（评审/诊断）</strong><div class="track"><div class="fill amber" style="width:55%"></div></div><span class="small">试点</span></div>
+      <div class="bar"><strong>3GPP / RF Case RAG</strong><div class="track"><div class="fill amber" style="width:52%"></div></div><span class="small">试点</span></div>
+      <p class="small">建议小范围验证：堆叠卡片、网表 JSON 问答、规范 RAG、端侧 1B/3B 基准测试。</p>
+    </div>
+
+    <div class="card" style="margin-bottom:14px">
+      <h3>需观察</h3>
+      <div class="bar"><strong>自动 PCB Layout</strong><div class="track"><div class="fill" style="width:28%"></div></div><span class="small">观察</span></div>
+      <div class="bar"><strong>自动结构设计</strong><div class="track"><div class="fill" style="width:22%"></div></div><span class="small">观察</span></div>
+      <div class="bar"><strong>RF/天线闭环优化</strong><div class="track"><div class="fill" style="width:25%"></div></div><span class="small">观察</span></div>
+      <div class="bar"><strong>Wireless Foundation Model 落地</strong><div class="track"><div class="fill" style="width:30%"></div></div><span class="small">观察</span></div>
+      <p class="small">跟踪论文和厂商 Demo，暂不投入工程资源。</p>
+    </div>
+
+    <div class="card red">
+      <h3>不建议投入过深</h3>
+      <div class="bar"><strong>完全自动设计（无人工审核）</strong><div class="track"><div class="fill red" style="width:12%"></div></div><span class="small">回避</span></div>
+      <div class="bar"><strong>无权限边界的 Agent</strong><div class="track"><div class="fill red" style="width:10%"></div></div><span class="small">回避</span></div>
+      <div class="bar"><strong>涉密资料上公网模型</strong><div class="track"><div class="fill red" style="width:5%"></div></div><span class="small">禁止</span></div>
+      <p class="small">风险远大于收益；自动写 PLM、自动改 CAD/PCB 暂缓。</p>
+    </div>
+  </section>
+
+  <!-- 5. 端侧 AI 与 AI Phone 架构影响 -->
+  <section class="slide">
+    <h2>5. 端侧 AI 与 AI Phone 架构影响</h2>
+    <div class="grid-3">
+      <div class="card blue"><h3>NPU / APU</h3><p>关注算子覆盖、prefill/decode、embedding、rerank、ASR、视觉 encoder 的功耗曲线。多 Agent 并发需任务调度能力。</p></div>
+      <div class="card green"><h3>内存与存储</h3><p>1B/3B/7B 模型量化、KV Cache、向量索引、模型按需加载。中低端机 RAM 预算是硬约束。</p></div>
+      <div class="card amber"><h3>端侧 RAG</h3><p>适合个人知识库、相册问答、设备说明书、离线客服；核心是隐私和弱网。NPU 能效是关键指标。</p></div>
+      <div class="card"><h3>端云协同</h3><p>端侧做隐私和低延迟，云端做复杂推理；弱网时自动降级。需定义切换阈值。</p></div>
+      <div class="card"><h3>功耗与热</h3><p>Agent 是连续负载，不是短峰值；要测 10 分钟对话、检索、摘要场景下的温升和续航影响。</p></div>
+      <div class="card"><h3>系统权限</h3><p>AI 调相机、文件、日历、通讯录时，必须任务级授权和可撤销，纳入 OS 安全审计。</p></div>
+    </div>
+    <div class="flow">
+      <div class="node"><strong>用户场景</strong><p>翻译、相册问答、设备自诊断、学习助手、售后客服。</p></div>
+      <div class="node"><strong>系统权限层</strong><p>文件、相机、日历、通讯录、位置等任务级授权。</p></div>
+      <div class="node"><strong>端侧小模型</strong><p>低延迟、隐私、弱网可用；承担识别、摘要、初筛。</p></div>
+      <div class="node"><strong>本地 RAG</strong><p>检索说明书、用户资料、历史记录，再交给模型回答。</p></div>
+      <div class="node"><strong>云端大模型</strong><p>复杂推理、多步 Agent、跨语言高质量生成。</p></div>
+      <div class="node"><strong>安全审计</strong><p>来源追溯、操作日志、敏感动作确认、可撤销。</p></div>
+    </div>
+    <div class="callout"><strong>架构判断：</strong>AI Phone 不是"预装一个聊天 App"，而是 OS 权限、端侧算力、云端模型、本地知识和审计机制的组合。壁垒在端云调度与 NPU 能效。</div>
+  </section>
+
+  <!-- 6. 传音重点市场机会 -->
+  <section class="slide">
+    <h2>6. 传音重点市场机会</h2>
+    <p class="small" style="margin-bottom:14px">传音不能只看云端大模型——弱网、多语言、低成本、端侧推理是差异化关键。</p>
+    <table>
+      <thead><tr><th>市场特征</th><th>用户痛点</th><th>优先 AI 场景</th><th>架构要求</th><th>技术动态关联</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>非洲 / 南亚弱网</td>
+          <td>网络不稳定、流量贵</td>
+          <td>离线翻译、网页摘要、低流量搜索</td>
+          <td>端侧模型 + 缓存 + 弱网降级</td>
+          <td>端侧 RAG on NPU；GLM 等本地备选模型</td>
+        </tr>
+        <tr>
+          <td>多语言环境</td>
+          <td>英语、法语、阿语、本地语言混用</td>
+          <td>通话/会议摘要、多语种输入、学习助手</td>
+          <td>端云 ASR + 小模型摘要 + 语言包管理</td>
+          <td>多模型供应链；端云协同架构</td>
+        </tr>
+        <tr>
+          <td>中低端机占比高</td>
+          <td>RAM、存储、功耗预算有限</td>
+          <td>轻量助手、图片/文本初筛、设备自诊断</td>
+          <td>1B/3B 小模型、int4/int8 量化、按需加载</td>
+          <td>小模型趋势；NPU 算子覆盖</td>
+        </tr>
+        <tr>
+          <td>售后服务分散</td>
+          <td>用户不会描述故障、服务成本高</td>
+          <td>设备自诊断、维修知识库问答、故障日志摘要</td>
+          <td>本地日志摘要 + 云端知识库 + 人工转接</td>
+          <td>多 Agent 诊断流程；端侧 RAG</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout"><strong>传音策略：</strong>优先投入端侧推理能力和弱网降级，而非追逐最新云端大模型。模型可替换、数据可控是底线。</div>
+  </section>
+
+  <!-- 7. 六岗位影响速查 -->
+  <section class="slide">
+    <h2>7. 六岗位影响速查</h2>
+    <table>
+      <thead><tr><th>岗位</th><th>本周相关技术动态</th><th>AI 能帮什么</th><th>建议试点</th><th>暂不建议</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>堆叠</td>
+          <td>多模态模型、端侧小模型</td>
+          <td>拆机图理解、竞品堆叠卡片、热源/净空提取</td>
+          <td>5 个历史项目生成堆叠卡片</td>
+          <td>直接让 AI 判断结构方案优劣</td>
+        </tr>
+        <tr>
+          <td>结构</td>
+          <td>多 Agent（Fugu）、AI Coding</td>
+          <td>DFM 检查、跌落/热报告摘要、变更影响分析</td>
+          <td>结构评审三 Agent 流程</td>
+          <td>直接自动改 CAD 主模型</td>
+        </tr>
+        <tr>
+          <td>PCB</td>
+          <td>PCB-QA、GenAI for PCB 综述</td>
+          <td>网表问答、DRC/ERC 摘要、datasheet 检查</td>
+          <td>网表 JSON + 20 条审图问答</td>
+          <td>直接自动 Layout</td>
+        </tr>
+        <tr>
+          <td>基带</td>
+          <td>Wireless Foundation Model</td>
+          <td>3GPP 规范问答、RRC/NAS trace 时间线</td>
+          <td>规范 RAG + 1 份日志解释</td>
+          <td>让 AI 单独定根因</td>
+        </tr>
+        <tr>
+          <td>射频</td>
+          <td>AI for Engineering 趋势</td>
+          <td>S 参数摘要、匹配网络案例检索、异常归因</td>
+          <td>RF Case RAG</td>
+          <td>自动闭环改匹配参数</td>
+        </tr>
+        <tr>
+          <td>天线</td>
+          <td>AI Coding、仿真脚本趋势</td>
+          <td>净空审查、频段知识库、CST/HFSS 参数扫描脚本</td>
+          <td>天线净空审查 Skill</td>
+          <td>直接生成量产天线方案</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout"><strong>模型选择参考：</strong>公开资料调研用 GPT/Gemini/Qwen；涉密文档用 GLM/Qwen/DeepSeek 内网部署；脚本开发用 Codex/Claude Code/Cursor；低成本批处理用 Luna 类小模型。</div>
+  </section>
+
+  <!-- 8. 架构部 AI 能力成熟度评分表 -->
+  <section class="slide">
+    <h2>8. 架构部 AI 能力成熟度评分表</h2>
+    <p class="small" style="margin-bottom:14px">用于部门自评：不是评价个人，而是判断各岗位 AI 能力是否已经从“会用”进入“可复用流程”。</p>
+    <table>
+      <thead><tr><th>等级</th><th>能力状态</th><th>典型表现</th><th>下一步行动</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>没用过</td><td>只听过 AI 新闻，不知道能解决什么工程问题。</td><td>完成一次公开资料调研，要求附来源链接。</td></tr>
+        <tr><td>1</td><td>会问答</td><td>能让模型解释概念、总结公开资料，但结果依赖个人经验。</td><td>建立岗位常用提示词，要求答案带出处。</td></tr>
+        <tr><td>2</td><td>会做资料摘要</td><td>能摘要 PD、测试报告、规范片段、竞品资料。</td><td>沉淀摘要模板，统一输出字段和检查项。</td></tr>
+        <tr><td>3</td><td>能跑 Skill / 固定流程</td><td>能用固定流程生成表格、报告、审查清单，结果可复核。</td><td>把高频任务做成部门 Skill，至少跑通 3 个历史案例。</td></tr>
+        <tr><td>4</td><td>接入内部资料</td><td>能基于文档库、问题单、测试库做 RAG 问答，答案可追溯。</td><td>建设只读 MCP / RAG，做权限分级和日志记录。</td></tr>
+        <tr><td>5</td><td>形成稳定流程</td><td>AI 输出进入评审、试验、复盘闭环，并有量化指标。</td><td>持续度量节省工时、准确率、返工率和风险事件。</td></tr>
+      </tbody>
+    </table>
+    <div class="grid-3" style="margin-top:14px">
+      <div class="card blue"><h3>短期目标</h3><p>一个月内让六个岗位至少达到 3 级：能跑固定 Skill / 固定流程。</p></div>
+      <div class="card green"><h3>平台目标</h3><p>工具负责人推进 4 级试点：只读知识库、规范 RAG、问题单 RAG。</p></div>
+      <div class="card amber"><h3>风险边界</h3><p>达到 5 级前，不允许 AI 自动写 PLM、自动改 CAD/PCB、自动给最终设计结论。</p></div>
+    </div>
+  </section>
+
+  <!-- 9. 附录：公开工具 / Skill / 学习资源 -->
+  <section class="slide">
+    <h2>9. 附录：公开工具 / Skill / 学习资源</h2>
+    <p class="small" style="margin-bottom:14px">供部门了解生态，非报告主线。优先选官方规范、可本地运行、权限可控的资源。</p>
+    <table>
+      <thead><tr><th>类型</th><th>资源</th><th>适用</th><th>地址</th><th>第一步</th></tr></thead>
+      <tbody>
+        <tr><td>Skill 规范</td><td>Agent Skills 官方规范</td><td>全员 / 工具负责人</td><td><a href="https://agentskills.io/">agentskills.io</a></td><td>写一个"测试报告摘要 Skill"</td></tr>
+        <tr><td>Skill 规范</td><td>Agent Skills GitHub</td><td>工具负责人</td><td><a href="https://github.com/agentskills/agentskills">GitHub</a></td><td>下载模板改部门命名规范</td></tr>
+        <tr><td>AI Coding</td><td>OpenAI Codex</td><td>自动化 / 脚本</td><td><a href="https://developers.openai.com/codex/">developers.openai.com/codex</a></td><td>生成 Creo/EDA 辅助脚本</td></tr>
+        <tr><td>AI Coding</td><td>Claude Code</td><td>脚本 / 多 Agent</td><td><a href="https://code.claude.com/docs">code.claude.com/docs</a></td><td>读代码库 + 生成测试</td></tr>
+        <tr><td>AI Coding</td><td>Cursor Docs</td><td>快速原型</td><td><a href="https://cursor.com/docs">cursor.com/docs</a></td><td>Agent + Rules + MCP 试跑</td></tr>
+        <tr><td>MCP</td><td>MCP Reference Servers</td><td>IT / 平台</td><td><a href="https://github.com/modelcontextprotocol/servers">GitHub</a></td><td>filesystem 只读目录试点</td></tr>
+        <tr><td>MCP</td><td>awesome-mcp-servers</td><td>预研</td><td><a href="https://github.com/punkpeye/awesome-mcp-servers">GitHub</a></td><td>筛选文档库/数据库类</td></tr>
+        <tr><td>学习</td><td>Claude Cookbooks</td><td>预研</td><td><a href="https://github.com/anthropics/claude-cookbooks">GitHub</a></td><td>文档问答示例改规范 RAG</td></tr>
+        <tr><td>模型</td><td>Hugging Face Models</td><td>内网评估</td><td><a href="https://huggingface.co/models">huggingface.co</a></td><td>查 embedding/rerank/量化版</td></tr>
+        <tr><td>论文</td><td>arXiv AI + EDA/通信</td><td>预研 / PCB / 基带</td><td><a href="https://arxiv.org/">arxiv.org</a></td><td>跟踪 PCB-QA、端侧 RAG</td></tr>
+      </tbody>
+    </table>
+    <div class="grid-3" style="margin-top:14px">
+      <div class="card green"><h3>推荐试点顺序</h3><p>堆叠卡片 → PCB 网表问答 → 3GPP 规范 RAG → 端侧 1B/3B 基准。</p></div>
+      <div class="card amber"><h3>准入门槛</h3><p>只读优先、来源可追溯、关键结论人工确认。</p></div>
+      <div class="card red"><h3>暂缓事项</h3><p>自动写 PLM、自动改 CAD/PCB、无审核 Agent。</p></div>
+    </div>
+  </section>
+
+  <!-- 10. 下期观察清单 -->
+  <section class="slide">
+    <h2>10. 下期观察清单</h2>
+    <div class="grid-2">
+      <div class="card blue">
+        <h3>下期重点观察</h3>
+        <ul class="impact-list">
+          <li><strong>模型发布：</strong>GPT-5.6 是否扩大访问；GLM-5.2、Qwen、DeepSeek 代码和长文档评测</li>
+          <li><strong>端侧芯片：</strong>Qualcomm / MediaTek NPU SDK 更新；1B/3B 端侧模型 benchmark</li>
+          <li><strong>AI Coding：</strong>Agent 权限事故、企业治理框架、生产环境 review 比例变化</li>
+          <li><strong>EDA/CAE：</strong>PCB-QA 准确率进展、仿真 Copilot、天线智能优化论文</li>
+          <li><strong>AI 安全：</strong>红队评测标准、区域合规政策、Agent 越权案例</li>
+        </ul>
+      </div>
+      <div class="card green">
+        <h3>建议每周跟踪来源</h3>
+        <ul class="impact-list">
+          <li><strong>模型厂商：</strong>OpenAI、Anthropic、Google、Qwen、DeepSeek、Zhipu</li>
+          <li><strong>芯片厂商：</strong>Qualcomm、MediaTek、ARM（端侧 AI SDK / NPU）</li>
+          <li><strong>论文：</strong>arXiv（PCB、RF、端侧 RAG、Wireless FM）</li>
+          <li><strong>媒体：</strong>The Verge、The Guardian、Business Insider</li>
+          <li><strong>工具：</strong>Cursor changelog、Claude Code Docs、MCP 生态</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:14px"><strong>数据说明：</strong>硬件细分方向近两周公开新闻不足处，使用 2026 年 6 月论文作为技术参考，并在正文中区分"新闻报道"与"论文/技术参考"。下期优先补充 Google / Qualcomm / MediaTek / ARM 官方端侧 AI 消息。</div>
+    <p class="small" style="margin-top:18px">主要来源：The Guardian、The Verge、Business Insider、arXiv（2606.11257、2606.21228、2606.23704、2606.17074、2606.06239）。</p>
+  </section>
+
+</main>
+</body>
+</html>
